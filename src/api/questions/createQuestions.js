@@ -1,5 +1,5 @@
 const { uploadQuestionsFile } = require('../s3/uploadQuestions');
-const Interview = require('../../models/Interview');
+const Host = require('../../models/Host'); // Corrected import
 const multer = require('multer');
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -10,10 +10,10 @@ const uploadQuestions = async (req, res) => {
       return res.status(400).json({ message: 'No Questions JSON file uploaded' });
     }
 
-    const { interview_id } = req.body;
+    const { host_id } = req.body;
 
-    if (!interview_id) {
-      return res.status(400).json({ message: 'Interview ID is required' });
+    if (!host_id) {
+      return res.status(400).json({ message: 'Host ID is required' });
     }
 
     const file = req.file;
@@ -21,16 +21,16 @@ const uploadQuestions = async (req, res) => {
     // Upload Questions JSON file to S3
     const { s3Url } = await uploadQuestionsFile(file.buffer, file.originalname);
 
-    // Update the interview record with S3 URL
-    const interview = await Interview.findByPk(interview_id);
-    if (!interview) {
-      return res.status(404).json({ message: 'Interview not found' });
+    // Update the host record with S3 URL
+    const host = await Host.findByPk(host_id);
+    if (!host) {
+      return res.status(404).json({ message: 'Host not found' });
     }
 
-    interview.s3_questions_url = s3Url;
-    await interview.save();
+    host.s3_questions_url = s3Url; // Corrected variable name
+    await host.save(); // Corrected variable name
 
-    res.status(200).json({ message: '✅ Questions JSON uploaded & linked to interview!', interview });
+    res.status(200).json({ message: '✅ Questions JSON uploaded & linked to host!', host });
   } catch (error) {
     console.error('❌ Questions Upload Error:', error);
     res.status(500).json({ message: 'Error uploading Questions JSON file', error: error.message });
