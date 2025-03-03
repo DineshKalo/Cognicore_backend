@@ -30,7 +30,7 @@ const uploadQuestions = async (req, res) => {
     host.s3_questions_url = s3Url; // Corrected variable name
     await host.save(); // Corrected variable name
 
-    res.status(200).json({ message: '✅ Questions JSON uploaded & linked to host!', host });
+    res.status(200).json({ message: '✅ Questions JSON uploaded & linked to host!',s3_Url: s3Url });
   } catch (error) {
     console.error('❌ Questions Upload Error:', error);
     res.status(500).json({ message: 'Error uploading Questions JSON file', error: error.message });
