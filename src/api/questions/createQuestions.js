@@ -27,7 +27,6 @@ const uploadQuestions = async (req, res) => {
       return res.status(404).json({ message: 'Host not found' });
     }
 
-    host.s3_questions_url = s3Url; // Corrected variable name
     await host.save(); // Corrected variable name
 
     res.status(200).json({ message: '✅ Questions JSON uploaded & linked to host!',s3_Url: s3Url });
