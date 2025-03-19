@@ -17,7 +17,7 @@ const Analysis = sequelize.define("Analysis", {
 {
   tableName: 'analysis',
   freezeTableName: true,
-  timestamps: true
+  timestamps: false
 });
 
 // Associations
