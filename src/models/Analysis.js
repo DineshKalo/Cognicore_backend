@@ -9,7 +9,7 @@ const Analysis = sequelize.define("Analysis", {
   fluency_score: DataTypes.FLOAT,
   alert_count: DataTypes.INTEGER,
   interview_id: {  // Foreign Key
-    type: DataTypes.UUID,
+    type: DataTypes.INTEGER,
     references: { model: 'interviews', key: "id" },
     onDelete: "CASCADE",
   },
