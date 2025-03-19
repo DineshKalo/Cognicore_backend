@@ -4,7 +4,6 @@ const Interview = require("./Interview");
 
 const Analysis = sequelize.define("Analysis", {
   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-  question_num: DataTypes.INTEGER,
   correctness_score: DataTypes.FLOAT,
   fluency_score: DataTypes.FLOAT,
   alert_count: DataTypes.INTEGER,
